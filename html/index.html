@@ -5,6 +5,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <link href="style.css" rel="stylesheet" type="text/css">
   <script src="http://listjs.com/no-cdn/list.js"></script>
+  <script src="config.js"></script>
   <script>
   var periscopeList;
     function winload () {
@@ -15,7 +16,7 @@
       }
     };
 
-    var pusher = new Pusher('bf03dd30677066fa69d5');
+    var pusher = new Pusher(pusher_app_key);
     var channel = pusher.subscribe('test_channel');
     channel.bind('my_event', function(data) {
       console.log(periscopeList);
