@@ -1,75 +1,67 @@
 <!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
 <head>
-  <title>Pusher Test</title>
-  <script src="//js.pusher.com/2.2/pusher.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundation 5</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/foundation.css">
   <link href="style.css" rel="stylesheet" type="text/css">
-  <script src="http://listjs.com/no-cdn/list.js"></script>
+  <script src="js/vendor/modernizr.js"></script>
+  <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+  <script src="js/handlebars-v3.0.3.js"></script>
   <script src="config.js"></script>
-  <script>
-  var periscopeList;
-    function winload () {
-      // Enable pusher logging - don't include this in production
-    Pusher.log = function(message) {
-      if (window.console && window.console.log) {
-        window.console.log(message);
-      }
-    };
-
-    var pusher = new Pusher(pusher_app_key);
-    var channel = pusher.subscribe('test_channel');
-    channel.bind('my_event', function(data) {
-      console.log(periscopeList);
-      periscopeList.add({
-        screen_name: data.username,
-        testo: data.text
-      });
-      /*
-      $( "#content" ).prepend( "<p>"+data.text+"</p><p><a href='"+data.url+"'>View on Periscope</a></p><p>Who: "+data.username+"</p><p><img src='"+data.profile_image+"'></p><p>Language:"+data.lang+"</p><p>From:"+data.timezone+"</p><hr>");
-      */
-    });
-
-
-    var options = {
-      valueNames: [ 'screen_name', 'testo' ]
-    };
-
-    periscopeList = new List('periscopes', options);
-    console.log(periscopeList);
-    }
-
-    //window.periscopeList = periscopeList;
-
-    window.onload=winload;
-  </script>
+  <script src="main.js"></script>
 </head>
 <body>
 <h1>Periscope realtime detector</h1>
-<!--
-<div>Filter: <input type="text" placeholder="Boobs" /></div>
-<div id="content"></div>
--->
-  <input class="search" placeholder="Search" />
-  <button class="sort" data-sort="testo">
-    Sort by Text
-  </button>
-<div id="periscopes">
-
-  <table>
-    <thead>
-      <tr>
-        <th class="sort" data-sort="screen_name">Nome</th>
-        <th class="sort" data-sort="testo">Testo</th>
-      </tr>
-    </thead>
-    <tbody class="list">
-      <tr>
-        <td class="screen_name">2</td>
-        <td class="testo">Jonas</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="large-12 columns">
+    <div class="row collapse">
+      <div class="small-10 columns">
+        <input type="text" placeholder="Search">
+      </div>
+      <div class="small-2 columns">
+        <a href="#" class="button postfix">Search</a>
+      </div>
+    </div>
+  </div>
 </div>
 
+
+
+<table role="grid">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Tweet</th>
+      <th>Link on Periscope</th>
+      <th>Pic Profile</th>
+      <th>Language</th>
+      <th>Time zone</th>
+    </tr>
+  </thead>
+  <tbody id="content">
+  </tbody>
+</table>
+
+
+<script id="entry-template" type="text/x-handlebars-template">
+<tr>
+  <td>{{username}}</td>
+  <td>{{text}}</td>
+  <td><a href='{{url}}'>View on Periscope</td>
+  <td><img src='{{profile_image}}'></td>
+  <td>{{lang}}</td>
+  <td>{{timezone}}</td></tr>
+</script>
+
+
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
 </body>
 </html>
