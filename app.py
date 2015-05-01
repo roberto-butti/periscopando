@@ -21,15 +21,15 @@ from config import prod
 
 # Go to http://apps.twitter.com and create an app.
 # The consumer key and secret will be generated for you after
-consumer_key=CONSUMER_KEY
-consumer_secret=CONSUMER_SECRET
-access_token=OAUTH_TOKEN
-access_token_secret=OAUTH_TOKEN_SECRET
+consumer_key=prod.CONSUMER_KEY
+consumer_secret=prod.CONSUMER_SECRET
+access_token=prod.OAUTH_TOKEN
+access_token_secret=prod.OAUTH_TOKEN_SECRET
 
 pusher = Pusher(
-  app_id=PUSHER_APP_ID,
-  key=PUSHER_KEY,
-  secret=PUSHER_SECRET
+  app_id=prod.PUSHER_APP_ID,
+  key=prod.PUSHER_KEY,
+  secret=prod.PUSHER_SECRET
 )
 
 class StdOutListener(StreamListener):
