@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <script src="http://listjs.com/no-cdn/list.js"></script>
+  <script>
+  var periscopeList;
+    function winload () {
+      // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+
+    var pusher = new Pusher('bf03dd30677066fa69d5');
+    var channel = pusher.subscribe('test_channel');
+    channel.bind('my_event', function(data) {
+      console.log(periscopeList);
+      periscopeList.add({
+        screen_name: data.username,
+        testo: data.text
+      });
+      /*
+      $( "#content" ).prepend( "<p>"+data.text+"</p><p><a href='"+data.url+"'>View on Periscope</a></p><p>Who: "+data.username+"</p><p><img src='"+data.profile_image+"'></p><p>Language:"+data.lang+"</p><p>From:"+data.timezone+"</p><hr>");
+      */
+    });
+
+
+    var options = {
+      valueNames: [ 'screen_name', 'testo' ]
+    };
+
+    periscopeList = new List('periscopes', options);
+    console.log(periscopeList);
+    }
+
+    //window.periscopeList = periscopeList;
+
+    window.onload=winload;
+  </script>
+</head>
+<body>
+<h1>Periscope realtime detector</h1>
+<!--
+<div>Filter: <input type="text" placeholder="Boobs" /></div>
+<div id="content"></div>
+-->
+  <input class="search" placeholder="Search" />
+  <button class="sort" data-sort="testo">
+    Sort by Text
+  </button>
+<div id="periscopes">
+
+  <table>
+    <thead>
+      <tr>
+        <th class="sort" data-sort="screen_name">Nome</th>
+        <th class="sort" data-sort="testo">Testo</th>
+      </tr>
+    </thead>
+    <tbody class="list">
+      <tr>
+        <td class="screen_name">2</td>
+        <td class="testo">Jonas</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
